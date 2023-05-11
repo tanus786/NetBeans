@@ -31,7 +31,16 @@
                                     <input type="text" name="user_name" placeholder="Enter Your Name"/>
                                     <input type="password" name="user_password" placeholder="Enter Your Password"/>
                                     <input type="email" name="user_email" placeholder="Enter Your Email"/>
-                                    
+                                    <div class="file-field input-field">
+                                        <div class="btn light-blue accent-3">
+                                            <span>File</span>
+                                            <input name="image" type="file">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
+                                    </div>
+
                                     <button type="submit" class="btn light-blue accent-3">Submit</button>
                                 </form>
                             </div>
@@ -94,7 +103,8 @@
             $("#myform").on('submit', function (event){
                 event.preventDefault();
                 
-                var f = $(this).serialize();
+//                var f = $(this).serialize(); //for only text data
+                let f = new FormData(this); //for image 
                 console.log(f);
                 $(".loader").show();
                 $(".form").hide();
@@ -123,7 +133,9 @@
                         $(".form").show();
                         $('#msg').html("Something went wrong!!");
                         $('#msg').addClass('red-text');
-                    }
+                    },
+                    processData : false,
+                    contentType: false
                 });
             });
     });

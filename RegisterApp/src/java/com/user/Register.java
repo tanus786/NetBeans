@@ -3,13 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 package com.user;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
+@MultipartConfig
 public class Register extends HttpServlet {
 
     /**
@@ -32,6 +38,9 @@ public class Register extends HttpServlet {
             String Name = request.getParameter("user_name");
             String Email = request.getParameter("user_email");
             String Password = request.getParameter("user_password");
+            Part part = request.getPart("image");
+            String Filename = part.getSubmittedFileName();
+//            out.println(Filename);
             
 //            out.println(Name);
 //            out.println(Email);
@@ -48,13 +57,23 @@ public class Register extends HttpServlet {
                     Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/register", "root","Tanu@123#!#");
                     //query....
                     
-                    String q = "insert into user(Name,Password,Email) values(?,?,?)";
+                    String q = "insert into user(Name,Password,Email,Image) values(?,?,?,?)";
                     PreparedStatement pstmt =  con.prepareStatement(q);
                     pstmt.setString(1, Name);
                     pstmt.setString(2, Password);
                     pstmt.setString(3, Email);
+                    pstmt.setString(4, Filename);
                     
                     pstmt.executeUpdate();
+                    //file upload...
+                    InputStream is = part.getInputStream();
+                    byte []data = new byte[is.available()];
+                    is.read(data);
+                    String path = request.getRealPath("/")+"Image"+File.separator+Filename;
+//                    out.println(path);
+                    FileOutputStream fos = new FileOutputStream(path);
+                    fos.write(data);
+                    fos.close();
                     
                     out.println("Done");
                   
