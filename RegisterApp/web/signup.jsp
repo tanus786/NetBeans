@@ -24,9 +24,10 @@
                     <div class="card">
                         <div class="card-content">
                             <h3 style="margin-top: 10px;"class="center-align">Register Here</h3>
+                            <h5 id="msg" class="center-align"></h5>
                             <div class="form center-align">
                                 <!--Creating Form-->
-                                <form action="Register" method="post">
+                                <form action="Register" method="post" id="myform">
                                     <input type="text" name="user_name" placeholder="Enter Your Name"/>
                                     <input type="password" name="user_password" placeholder="Enter Your Password"/>
                                     <input type="email" name="user_email" placeholder="Enter Your Email"/>
@@ -88,8 +89,43 @@
         
         <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
         <script>
-            $( document ).ready(function() {
+            $(document).ready(function() {
             console.log( "Page is Ready.." );
+            $("#myform").on('submit', function (event){
+                event.preventDefault();
+                
+                var f = $(this).serialize();
+                console.log(f);
+                $(".loader").show();
+                $(".form").hide();
+                $.ajax({
+                    url:"Register",
+                    data: f,
+                    type:'POST',
+                    success:function(data, textStatus, jqXHR){
+                        console.log(data);
+                        console.log("success...");
+                        $(".loader").hide();
+                        $(".form").show();
+                        if(data.trim()==='Done'){
+                            $('#msg').html("Successfully Registered!!");
+                            $('#msg').addClass('green-text');
+                        }
+                        else{
+                            $('#msg').html("Something went wrong on server!!");
+                            $('#msg').addClass('red-text');
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrow){
+                        console.log(data);
+                        console.log("error...");
+                        $(".loader").hide();
+                        $(".form").show();
+                        $('#msg').html("Something went wrong!!");
+                        $('#msg').addClass('red-text');
+                    }
+                });
+            });
     });
         </script>
     </body>
