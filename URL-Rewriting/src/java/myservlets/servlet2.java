@@ -39,7 +39,8 @@ public class servlet2 extends HttpServlet {
             out.println("<body>");
             
             out.println("<h1 style = 'color : blue;' >Welcome to Servlet 2</h1>");
-            String name = request.getParameter("user");
+//            String name = request.getParameter("user");
+            String name = request.getParameter("user_name");
             out.println("<h1 style = 'color : red;' >Welcome back "+name+"</h1>");
             
             out.println("</body>");
