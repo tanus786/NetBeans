@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page errorPage = "error_page.jsp" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -21,5 +22,17 @@
             <h2>True</h2>
         </c:if>
         <c:out value="${45+98}"></c:out>
+        
+    <!--Error Handling in JSP-->
+    
+        <%! int n1 = 20;
+            int n2 = 10;
+            String content = null;
+        %>
+        <%
+            int division = n1/n2;
+            %>
+            <h1>Division = <%= division %></h1>
+            <%= content.length()%>
     </body>
 </html>
