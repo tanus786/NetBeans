@@ -8,6 +8,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class MyFilter implements Filter{
 
@@ -21,7 +23,9 @@ public class MyFilter implements Filter{
         System.out.println("Before Filter");
         //...
         //..
-        chain.doFilter(request, response);
+         HttpServletRequest req = (HttpServletRequest)request;
+         HttpSession =req.getSession();
+        chain.doFilts er(request, response);
         System.out.println("After Filter");
         //..
         //..
