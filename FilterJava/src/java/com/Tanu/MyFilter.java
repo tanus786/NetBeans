@@ -23,9 +23,19 @@ public class MyFilter implements Filter{
         System.out.println("Before Filter");
         //...
         //..
-         HttpServletRequest req = (HttpServletRequest)request;
-         HttpSession =req.getSession();
-        chain.doFilts er(request, response);
+//         HttpServletRequest req = (HttpServletRequest)request;
+//         HttpSession s = req.getSession();
+//         User user = (User)s.getAttribute("user");
+//         if(user!= null && user.getType().equals("teacher")){
+//             //Login
+//             chain.doFilter(request, response);
+//         }
+//        else{
+//        System.out.println("Not Logged in Please login to view this page ");
+//        response.setContentType("text/html");
+//        response.getWriter().println("Not Logged in Please login to view this page ");
+//        }
+        chain.doFilter(request, response);
         System.out.println("After Filter");
         //..
         //..
